@@ -9,6 +9,7 @@ import injectContext from "./store/appContext";
 import { CharacterDetails } from "./component/CharacterDetails ";
 import { StarshipDetails } from "./component/StarshipDetails";
 import { PlanetDetails } from "./component/PlanetDetails";
+import FavoritesPage from "./views/FavoritePage";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
@@ -31,6 +32,7 @@ const Layout = () => {
 						<Route path="/characters/:id" element={<CharacterDetails />} />
 						<Route path="/starships/:id" element={<StarshipDetails />} />
 						<Route path="/planets/:id" element={<PlanetDetails />} />
+						<Route path="/favorites" element={<FavoritesPage />} />
 					</Routes>
 					<Footer />
 				</ScrollToTop>

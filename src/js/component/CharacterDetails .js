@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export const CharacterDetails = () => {
     const { id } = useParams(); // Obtén el id desde la URL
     const [character, setCharacter] = useState(null);
-
+    const navigate = useNavigate(); 
     useEffect(() => {
         // Hacemos fetch a la API de SWAPI usando el ID que obtenemos de la URL
         fetch(`https://www.swapi.tech/api/people/${id}`)
@@ -31,6 +32,9 @@ export const CharacterDetails = () => {
                 <li><strong>Año de nacimiento:</strong> {character.birth_year}</li>
                 <li><strong>Género:</strong> {character.gender}</li>
             </ul>
+            <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
+            Volver a Home
+            </button>
         </div>
     );
 };

@@ -1,13 +1,19 @@
 import React, { useContext } from 'react';
-import { StoreContext } from '../context/Store';
-import CardItem from '../components/CardItem';
+import { Context } from '../store/appContext'; // Asegúrate de que esta importación sea correcta
+import CardItem from '../component/CardItem';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 const FavoritesPage = () => {
-  const { favorites } = useContext(StoreContext);
+  const { store } = useContext(Context); // Usa 'store' para acceder a los datos
+  const { favorites } = store; // Accede a los favoritos desde el store
+  const navigate = useNavigate(); // Crea la función de navegación
 
   return (
     <div className="container">
       <h1>Your Favorites</h1>
+      <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
+        Volver a Home
+      </button>
       <div className="d-flex flex-wrap">
         {favorites.length > 0 ? (
           favorites.map(item => (
@@ -22,3 +28,4 @@ const FavoritesPage = () => {
 };
 
 export default FavoritesPage;
+

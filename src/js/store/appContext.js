@@ -20,12 +20,10 @@ const injectContext = (PassedComponent) => {
     );
 
     useEffect(() => {
-      
+      // Cargar datos iniciales
       state.actions.loadPeople();
       state.actions.loadVehicles();
       state.actions.loadPlanets();
-      
-      // Si tienes más acciones a ejecutar al inicio, puedes llamarlas aquí
     }, []);
 
     // Retornamos el contexto con `store` y `actions` disponibles en toda la app

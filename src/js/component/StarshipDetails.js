@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export const StarshipDetails = () => {
     const { id } = useParams();
     const [starship, setStarship] = useState(null);
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         fetch(`https://www.swapi.tech/api/starships/${id}`)
@@ -37,7 +39,11 @@ export const StarshipDetails = () => {
                 <li><strong>Clasificación de hipervínculo:</strong> {starship.hyperdrive_rating}</li>
                 <li><strong>Capacidad de carga:</strong> {starship.cargo_capacity}</li>
                 <li><strong>Consumibles:</strong> {starship.consumables}</li>
+                
             </ul>
+            <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
+            Volver a Home
+            </button>
         </div>
     );
 };

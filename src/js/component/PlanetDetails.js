@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export const PlanetDetails = () => {
     const { id } = useParams(); // Obtener el ID de la URL
     const [planet, setPlanet] = useState(null); // Estado para almacenar los detalles del planeta
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         fetch(`https://www.swapi.tech/api/planets/${id}`) // Realiza la solicitud a la API
@@ -37,6 +39,9 @@ export const PlanetDetails = () => {
                 <li><strong>Terreno:</strong> {planet.terrain}</li>
                 <li><strong>Agua superficial:</strong> {planet.surface_water}</li>
             </ul>
+            <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
+            Volver a Home
+            </button>
         </div>
     );
 };
