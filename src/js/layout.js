@@ -6,7 +6,9 @@ import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
-
+import { CharacterDetails } from "./component/CharacterDetails ";
+import { StarshipDetails } from "./component/StarshipDetails";
+import { PlanetDetails } from "./component/PlanetDetails";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
@@ -26,6 +28,9 @@ const Layout = () => {
 						<Route path="/demo" element={<Demo />} />
 						<Route path="/single/:theid" element={<Single />} />
 						<Route path="*" element={<h1>Not found!</h1>} />
+						<Route path="/characters/:id" element={<CharacterDetails />} />
+						<Route path="/starships/:id" element={<StarshipDetails />} />
+						<Route path="/planets/:id" element={<PlanetDetails />} />
 					</Routes>
 					<Footer />
 				</ScrollToTop>
