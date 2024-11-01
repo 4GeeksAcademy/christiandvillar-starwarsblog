@@ -5,13 +5,20 @@ import { Context } from '../store/appContext'; // Asegúrate de que esta importa
 const CardItem = ({ item, type }) => {
     const { store, actions } = useContext(Context); // Obtén el store y las acciones del contexto
     const [imgLoaded, setImgLoaded] = useState(true); // Estado para manejar la carga de la imagen
+    const [isFav, setIsFav] = useState(() => store.favorites.some(fav => fav.uid === item.uid && fav.type === item.type)); // Estado local para favoritos
 
-    const isFavorite = (item) => {
-        return store.favorites.some(fav => fav.uid === item.uid); // Verifica si el item está en favoritos
+    // Manejar errores en la carga de imágenes
+    const handleImgError = () => {
+        setImgLoaded(false); // Cambia el estado si la imagen no se carga
     };
 
-    const handleImgError = () => {
-        setImgLoaded(false); // Si la imagen falla al cargar, cambia el estado
+    // Función para alternar el estado de favorito
+    const handleToggleFavorite = () => {
+        // Mostrar en la consola qué ítem se está alternando
+        console.log(`Toggling favorite for item: ${item.name} (UID: ${item.uid}, Type: ${type})`);
+        
+        actions.toggleFavorite({ uid: item.uid, type }); // Llama a la acción para alternar favoritos
+        setIsFav(prev => !prev); // Alternar el estado local para reflejar el cambio
     };
 
     return (
@@ -24,14 +31,14 @@ const CardItem = ({ item, type }) => {
             />
             <div className="card-body">
                 <h5 className="card-title">{item.name}</h5>
-                <button 
+                <button
                     className="btn btn-link"
-                    onClick={() => actions.toggleFavorite(item)} // Llama a toggleFavorite al hacer clic
+                    onClick={handleToggleFavorite} // Llama a la función para alternar favoritos
                 >
-                    {isFavorite(item) ? (
-                        <i className="fas fa-heart" style={{ color: 'red' }}></i> // Corazón lleno
+                    {isFav ? ( // Usa el estado local para determinar el estado actual
+                        <i className="fas fa-heart" style={{ color: 'red' }}></i> // Corazón lleno si es favorito
                     ) : (
-                        <i className="far fa-heart" style={{ color: 'gray' }}></i> // Corazón vacío
+                        <i className="far fa-heart" style={{ color: 'gray' }}></i> // Corazón vacío si no es favorito
                     )}
                 </button>
                 <Link to={`/${type === "vehicles" ? "starships" : type}/${item.uid}`} className="btn btn-primary">
@@ -43,4 +50,3 @@ const CardItem = ({ item, type }) => {
 };
 
 export default CardItem;
-
